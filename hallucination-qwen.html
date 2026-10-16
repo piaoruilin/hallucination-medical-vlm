@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dataset Viewer</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      margin: 24px;
+      background: #f8fafc;
+      color: #0f172a;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #ffffff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    th, td {
+      border: 1px solid #e2e8f0;
+      padding: 10px 14px;
+      text-align: left;
+      vertical-align: top;
+      font-size: 0.9rem;
+    }
+    th {
+      background: #f1f5f9;
+      font-weight: 600;
+      position: sticky;
+      top: 0;
+    }
+    tr:nth-child(even) {
+      background: #f8fafc;
+    }
+    .badge-halluc {
+      color: #b91c1c;
+      background: #fee2e2;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+    .badge-clean {
+      color: #15803d;
+      background: #dcfce7;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+    .token-hl {
+      background: #fecaca;
+      color: #991b1b;
+      font-weight: 600;
+      padding: 0 2px;
+      border-radius: 2px;
+    }
+    .gt {
+      color: #0369a1;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Dataset Entries (Total: 62)</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Row</th>
+        <th>Question</th>
+        <th>Ground Truth</th>
+        <th>Model Answer (Tokens Highlighted)</th>
+        <th>Type</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>0</td>
+        <td>Where is the defect located in the lungs?</td>
+        <td class="gt">Right upper lobe</td>
+        <td>The defect is located in the <span class="token-hl">left</span> <span class="token-hl">lower</span> lobe of the lungs.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>Where is the defect located in the lungs?</td>
+        <td class="gt">Right upper lobe</td>
+        <td>The defect is located in the right lower lobe of the lungs.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>What was the initial condition shown in the chest CT images?</td>
+        <td class="gt">Low-density infiltrate in bilateral lungs and pleural effusion on the right side</td>
+        <td>The initial condition shown in the chest CT images was a low-density infiltrate in the <span class="token-hl">left</span> <span class="token-hl">lung</span> and a small <span class="token-hl">pulmonary</span> <span class="token-hl">nodule.</span></td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>What was the initial condition shown in the chest CT images?</td>
+        <td class="gt">Low-density infiltrate in bilateral lungs and pleural effusion on the right side</td>
+        <td>The initial condition shown in the chest CT images was a low-density infiltrate in the left lung.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>What did the chest CT show after treatment?</td>
+        <td class="gt">Absorption of pleural effusion and inflammatory sites in the lungs</td>
+        <td>Absorption of pleural effusion and inflammatory sites in the lungs <span class="token-hl">were</span> <span class="token-hl">seen</span> after treatment.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>What did the chest CT show after treatment?</td>
+        <td class="gt">Absorption of pleural effusion and inflammatory sites in the lungs</td>
+        <td>Absorption of pleural effusion and inflammatory sites in the lungs was observed after treatment.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>What type of tumor is located in the anterior mediastinum?</td>
+        <td class="gt">carcinoma</td>
+        <td>A <span class="token-hl">cancer</span> is located in the anterior mediastinum.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>What type of tumor is located in the anterior mediastinum?</td>
+        <td class="gt">carcinoma</td>
+        <td>A carcinoma is located in the anterior mediastinum.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>What does the non-contrast axial chest CT show?</td>
+        <td class="gt">Bilateral ground-glass opacities and posterior lung consolidation</td>
+        <td>The non-contrast axial chest CT shows bilateral ground-glass opacities, posterior lung consolidation, <span class="token-hl">and</span> <span class="token-hl">enlarged</span> <span class="token-hl">lymph</span> <span class="token-hl">nodes.</span></td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>What does the non-contrast axial chest CT show?</td>
+        <td class="gt">Bilateral ground-glass opacities and posterior lung consolidation</td>
+        <td>The non-contrast axial chest CT shows bilateral ground-glass opacities and posterior lung consolidation.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>What is indicated by the black arrow in the sagittal view of the chest CT scan?</td>
+        <td class="gt">Fistulous connection</td>
+        <td>The black arrow in the sagittal view of the chest CT scan indicates a <span class="token-hl">large</span> fistula.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>What is indicated by the black arrow in the sagittal view of the chest CT scan?</td>
+        <td class="gt">Fistulous connection</td>
+        <td>The black arrow in the sagittal view of the chest CT scan indicates a fistula.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>What does the blue arrow point to in the chest CT reconstruction?</td>
+        <td class="gt">Pseudoaneurysm</td>
+        <td>The blue arrow points to a pseudoaneurysm and a <span class="token-hl">small</span> <span class="token-hl">tumor</span> in the chest CT reconstruction.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>What does the blue arrow point to in the chest CT reconstruction?</td>
+        <td class="gt">Pseudoaneurysm</td>
+        <td>The blue arrow points to a pseudoaneurysm in the chest CT reconstruction.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>What diagnostic imaging modality was used to identify the mediastinal mass?</td>
+        <td class="gt">PET scan</td>
+        <td>The PET scan was used to identify the mediastinal <span class="token-hl">left.</span></td>
+        <td>wrong_side</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>What diagnostic imaging modality was used to identify the mediastinal mass?</td>
+        <td class="gt">PET scan</td>
+        <td>The PET scan was used to identify the mediastinal mass.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>What abnormality was observed on the chest radiography of the patient with epidermolysis bullosa?</td>
+        <td class="gt">Hypotransparency at the right apex.</td>
+        <td>Hypotransparency was observed at the <span class="token-hl">left</span> <span class="token-hl">apex</span> on the chest radiography of the patient with epidermolysis bullosa.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>What abnormality was observed on the chest radiography of the patient with epidermolysis bullosa?</td>
+        <td class="gt">Hypotransparency at the right apex.</td>
+        <td>Hypotransparency was observed at the right apex on the chest radiography of the patient with epidermolysis bullosa.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>What type of tumor was found in the mid-thoracic esophagus?</td>
+        <td class="gt">Type 2 tumor</td>
+        <td>The Type 2 tumor was found in the mid-thoracic esophagus and the patient also had <span class="token-hl">a</span> <span class="token-hl">small</span> <span class="token-hl">kidney</span> <span class="token-hl">stone.</span></td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>What type of tumor was found in the mid-thoracic esophagus?</td>
+        <td class="gt">Type 2 tumor</td>
+        <td>The Type 2 tumor was found in the mid-thoracic esophagus.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>Which pulmonary artery was injected to show the stenosis?</td>
+        <td class="gt">Left pulmonary artery</td>
+        <td>The <span class="token-hl">right</span> <span class="token-hl">pulmonary</span> artery was injected to show the stenosis.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>Which pulmonary artery was injected to show the stenosis?</td>
+        <td class="gt">Left pulmonary artery</td>
+        <td>The left pulmonary artery was injected to show the stenosis.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td>2) Question: Which lung lobe presents with consolidation in the CT Scan of the patient?</td>
+        <td class="gt">Left lingula</td>
+        <td>The <span class="token-hl">right</span> <span class="token-hl">lingula</span> shows signs of consolidation on the CT scan.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td>2) Question: Which lung lobe presents with consolidation in the CT Scan of the patient?</td>
+        <td class="gt">Left lingula</td>
+        <td>The left lingula shows signs of consolidation on the CT scan.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td>What kind of staining pattern can be observed in the lung metastasis shown in the image?</td>
+        <td class="gt">Apical, basolateral and cytoplasmic staining.</td>
+        <td>Apical, basolateral and cytoplasmic staining can be observed in the lung metastasis shown in the image, along with a new <span class="token-hl">tumor</span> <span class="token-hl">growth</span> in the <span class="token-hl">right</span> <span class="token-hl">upper</span> <span class="token-hl">lobe.</span></td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td>What kind of staining pattern can be observed in the lung metastasis shown in the image?</td>
+        <td class="gt">Apical, basolateral and cytoplasmic staining.</td>
+        <td>Apical, basolateral and cytoplasmic staining can be observed in the lung metastasis shown in the image.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td>How many opacities are present on the patient's chest X-ray?</td>
+        <td class="gt">multiple</td>
+        <td>The patient's <span class="token-hl">right</span> chest X-ray shows multiple opacities.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td>How many opacities are present on the patient's chest X-ray?</td>
+        <td class="gt">multiple</td>
+        <td>The patient's chest X-ray shows multiple opacities.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td>What is the condition of the patient's chest X-ray?</td>
+        <td class="gt">Bilobular diffuse pulmonary with alveolar infiltrate and opacities</td>
+        <td>The patient's chest X-ray shows bilateral lung consolidation, pleural effusion, <span class="token-hl">and</span> <span class="token-hl">a</span> <span class="token-hl">new</span> <span class="token-hl">arrhythmia.</span></td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td>What is the condition of the patient's chest X-ray?</td>
+        <td class="gt">Bilobular diffuse pulmonary with alveolar infiltrate and opacities</td>
+        <td>The patient's chest X-ray shows bilateral lung consolidation and pleural effusion.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td>Where is the pulmonary nodule located?</td>
+        <td class="gt">Left upper lobe</td>
+        <td>The pulmonary nodule is located in the <span class="token-hl">right</span> <span class="token-hl">upper</span> lobe.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td>Where is the pulmonary nodule located?</td>
+        <td class="gt">Left upper lobe</td>
+        <td>The pulmonary nodule is located in the left lower lobe.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td>What is the location of the pulmonary nodule?</td>
+        <td class="gt">Left upper lobe</td>
+        <td>The pulmonary nodule is located in the <span class="token-hl">right</span> <span class="token-hl">lower</span> <span class="token-hl">lobe</span> and also in the left upper lobe.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td>What is the location of the pulmonary nodule?</td>
+        <td class="gt">Left upper lobe</td>
+        <td>The pulmonary nodule is located in the left upper lobe.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td>What is the appearance of the arterial vessels seen on the lung scan?</td>
+        <td class="gt">enlarged</td>
+        <td>The arterial vessels seen on the lung scan are <span class="token-hl">very</span> <span class="token-hl">small.</span></td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td>What is the appearance of the arterial vessels seen on the lung scan?</td>
+        <td class="gt">enlarged</td>
+        <td>The arterial vessels seen on the lung scan are enlarged.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td>Where is the remarkable pleural thickening located?</td>
+        <td class="gt">Posteriorly</td>
+        <td>The remarkable pleural thickening is located <span class="token-hl">anteriorly.</span></td>
+        <td>wrong_organ</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td>Where is the remarkable pleural thickening located?</td>
+        <td class="gt">Posteriorly</td>
+        <td>The remarkable pleural thickening is located posteriorly.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td>What imaging tool was used to detect the enlarged arterial vessels in the lungs?</td>
+        <td class="gt">CT Scan</td>
+        <td>The <span class="token-hl">MRI</span> scan revealed the enlarged arterial vessels in the lungs, which were <span class="token-hl">not</span> <span class="token-hl">visible</span> <span class="token-hl">on</span> <span class="token-hl">the</span> CT scan.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td>What imaging tool was used to detect the enlarged arterial vessels in the lungs?</td>
+        <td class="gt">CT Scan</td>
+        <td>The CT Scan detected the enlarged arterial vessels in the lungs.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td>What is the size of the pulmonary nodules seen on the chest radiographs?</td>
+        <td class="gt">&lt;1cm</td>
+        <td>The pulmonary nodules seen on the chest radiographs are <span class="token-hl">larger</span> than <span class="token-hl">1</span> <span class="token-hl">cm.</span></td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td>What is the size of the pulmonary nodules seen on the chest radiographs?</td>
+        <td class="gt">&lt;1cm</td>
+        <td>The pulmonary nodules seen on the chest radiographs are all smaller than 1 cm.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td>Which lobes of the lungs are affected in the CT scan?</td>
+        <td class="gt">lower lobes only</td>
+        <td>The CT scan reveals that the lower lobes of the lungs are affected, along with the <span class="token-hl">upper</span> <span class="token-hl">lobes</span> <span class="token-hl">which</span> <span class="token-hl">are</span> <span class="token-hl">also</span> <span class="token-hl">damaged.</span></td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td>Which lobes of the lungs are affected in the CT scan?</td>
+        <td class="gt">lower lobes only</td>
+        <td>The CT scan shows that only the lower lobes of the lungs are affected.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td>What were the findings in the chest CT scan?</td>
+        <td class="gt">Pulmonary nodules of various sizes and a small left pleural effusion</td>
+        <td>The chest CT scan showed pulmonary nodules of various sizes and a small <span class="token-hl">right</span> pleural effusion.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td>What were the findings in the chest CT scan?</td>
+        <td class="gt">Pulmonary nodules of various sizes and a small left pleural effusion</td>
+        <td>The chest CT scan showed pulmonary nodules of various sizes and a small left pleural effusion.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td>What is the location of the pulmonary lesion in the image?</td>
+        <td class="gt">Lower Right Lobe</td>
+        <td>The pulmonary lesion is located in the <span class="token-hl">lower</span> <span class="token-hl">right</span> <span class="token-hl">lobe.</span></td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td>What is the location of the pulmonary lesion in the image?</td>
+        <td class="gt">Lower Right Lobe</td>
+        <td>The pulmonary lesion is located in the lower left lobe.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td>What is the location of the pulmonary lesion in the chest CT?</td>
+        <td class="gt">Right lower lobe</td>
+        <td>The pulmonary lesion is located in the <span class="token-hl">left</span> <span class="token-hl">lower</span> <span class="token-hl">lobe.</span></td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td>What is the location of the pulmonary lesion in the chest CT?</td>
+        <td class="gt">Right lower lobe</td>
+        <td>The pulmonary lesion is located in the right lower lobe.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td>What is the characteristic of the lesion inside the pulmonary lesion in the chest CT?</td>
+        <td class="gt">Inner air bronchograms</td>
+        <td>The inner air bronchograms are characteristic of the lesion inside the pulmonary lesion in the chest CT, and also the presence of <span class="token-hl">calcifications.</span></td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td>What is the characteristic of the lesion inside the pulmonary lesion in the chest CT?</td>
+        <td class="gt">Inner air bronchograms</td>
+        <td>The inner air bronchograms are characteristic of the lesion inside the pulmonary lesion in the chest CT.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td>What does the chest CT scan show?</td>
+        <td class="gt">Primary lesion in the right upper lobe and a small pericardial effusion</td>
+        <td>The chest CT scan shows a primary lesion in the right upper lobe and a small <span class="token-hl">pleural</span> effusion.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td>What does the chest CT scan show?</td>
+        <td class="gt">Primary lesion in the right upper lobe and a small pericardial effusion</td>
+        <td>The chest CT scan shows a primary lesion in the left lower lobe and a small pericardial effusion.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td>What type of scan was used to show uptake by the primary lesion, mediastinal lymph nodes, and pelvic bone?</td>
+        <td class="gt">F18 fluorodeoxyglucose positron emission tomography scan</td>
+        <td>The F18 fluorodeoxyglucose positron emission tomography scan showed uptake by the primary lesion, <span class="token-hl">adrenal</span> <span class="token-hl">glands,</span> and pelvic bone.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td>What type of scan was used to show uptake by the primary lesion, mediastinal lymph nodes, and pelvic bone?</td>
+        <td class="gt">F18 fluorodeoxyglucose positron emission tomography scan</td>
+        <td>The F18 fluorodeoxyglucose positron emission tomography scan showed uptake by the primary lesion, mediastinal lymph nodes, and pelvic bone.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td>Where was the primary lesion identified in the chest CT scan?</td>
+        <td class="gt">Right upper lobe</td>
+        <td>The primary lesion was found in the right upper lobe of the <span class="token-hl">liver</span> on the chest CT scan.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td>Where was the primary lesion identified in the chest CT scan?</td>
+        <td class="gt">Right upper lobe</td>
+        <td>The primary lesion was found in the right upper lobe of the lung on the chest CT scan.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td>What was initially reported in the chest radiograph?</td>
+        <td class="gt">Acute process</td>
+        <td>The chest radiograph initially showed a <span class="token-hl">severe</span> process.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td>What was initially reported in the chest radiograph?</td>
+        <td class="gt">Acute process</td>
+        <td>The chest radiograph initially showed an acute process.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td>What did the chest CT scan show before chemotherapy?</td>
+        <td class="gt">Extensive pulmonary metastases with enlarged mediastinal lymph nodes</td>
+        <td>The chest CT scan showed extensive pulmonary metastases with enlarged mediastinal lymph nodes <span class="token-hl">and</span> <span class="token-hl">a</span> <span class="token-hl">large</span> <span class="token-hl">tumor</span> <span class="token-hl">in</span> <span class="token-hl">the</span> liver before chemotherapy.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td>What did the chest CT scan show before chemotherapy?</td>
+        <td class="gt">Extensive pulmonary metastases with enlarged mediastinal lymph nodes</td>
+        <td>The chest CT scan showed extensive pulmonary metastases with enlarged mediastinal lymph nodes before chemotherapy.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td>What was observed in the chest computed tomography on day 21?</td>
+        <td class="gt">Enlargement of the subcarinal and hilar lymph nodes</td>
+        <td>The subcarinal and hilar lymph nodes were observed to be enlarged, <span class="token-hl">along</span> <span class="token-hl">with</span> <span class="token-hl">the</span> <span class="token-hl">presence</span> <span class="token-hl">of</span> <span class="token-hl">calcifications,</span> on the chest computed tomography performed on day 21.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td>What was observed in the chest computed tomography on day 21?</td>
+        <td class="gt">Enlargement of the subcarinal and hilar lymph nodes</td>
+        <td>The subcarinal and hilar lymph nodes were observed to be enlarged on the chest computed tomography performed on day 21.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td>What imaging technique was used to observe pulmonary changes in COVID-19 pneumonia over time?</td>
+        <td class="gt">MRI</td>
+        <td><span class="token-hl">CT</span> <span class="token-hl">scan</span> was used to observe pulmonary <span class="token-hl">changes</span> in COVID-19 pneumonia over time.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td>What imaging technique was used to observe pulmonary changes in COVID-19 pneumonia over time?</td>
+        <td class="gt">MRI</td>
+        <td>MRI was used to observe pulmonary changes in COVID-19 pneumonia over time.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td>How many examples of X-ray chest radiography images are shown in the figure?</td>
+        <td class="gt">2</td>
+        <td>The figure shows 2 examples of X-ray chest radiography images on <span class="token-hl">the</span> right side.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td>How many examples of X-ray chest radiography images are shown in the figure?</td>
+        <td class="gt">2</td>
+        <td>The figure shows 2 examples of X-ray chest radiography images.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>42</td>
+        <td>What was observed in the pleura?</td>
+        <td class="gt">The pleura was thinner</td>
+        <td>The pleura was thinner in the <span class="token-hl">lower</span> part.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>42</td>
+        <td>What was observed in the pleura?</td>
+        <td class="gt">The pleura was thinner</td>
+        <td>The pleura was thinner in the upper part.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>43</td>
+        <td>What is the result of the initial chest CT?</td>
+        <td class="gt">Right upper lobe tissue process</td>
+        <td>The initial chest CT shows <span class="token-hl">abnormal</span> right upper lobe tissue process.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>43</td>
+        <td>What is the result of the initial chest CT?</td>
+        <td class="gt">Right upper lobe tissue process</td>
+        <td>The initial chest CT shows normal right upper lobe tissue process.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>45</td>
+        <td>What imaging technique was used to detect the focus in left hemithorax?</td>
+        <td class="gt">PET scan</td>
+        <td>The PET scan was used to detect the focus in the <span class="token-hl">right</span> <span class="token-hl">hemithorax.</span></td>
+        <td>wrong_organ</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>45</td>
+        <td>What imaging technique was used to detect the focus in left hemithorax?</td>
+        <td class="gt">PET scan</td>
+        <td>The PET scan was used to detect the focus in the left hemithorax.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>46</td>
+        <td>What is suspected to be present in the left hemithorax?</td>
+        <td class="gt">Tumor growth</td>
+        <td>The left hemithorax shows signs of a tumor growth <span class="token-hl">and</span> <span class="token-hl">a</span> new infection.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>46</td>
+        <td>What is suspected to be present in the left hemithorax?</td>
+        <td class="gt">Tumor growth</td>
+        <td>The left hemithorax shows signs of a tumor growth.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>47</td>
+        <td>Which pulmonary vein is affected?</td>
+        <td class="gt">Left upper.</td>
+        <td>The <span class="token-hl">right</span> <span class="token-hl">upper</span> pulmonary vein is affected.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>47</td>
+        <td>Which pulmonary vein is affected?</td>
+        <td class="gt">Left upper.</td>
+        <td>The left upper pulmonary vein is affected.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>49</td>
+        <td>Which pulmonary vein has atresia as per the CT angiogram?</td>
+        <td class="gt">Left upper pulmonary vein.</td>
+        <td>The <span class="token-hl">right</span> <span class="token-hl">lower</span> <span class="token-hl">pulmonary</span> <span class="token-hl">vein</span> is affected by atresia in the CT angiogram.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>49</td>
+        <td>Which pulmonary vein has atresia as per the CT angiogram?</td>
+        <td class="gt">Left upper pulmonary vein.</td>
+        <td>The left upper pulmonary vein is affected by atresia in the CT angiogram.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>50</td>
+        <td>Which segments of the lung are affected by bronchiectasis?</td>
+        <td class="gt">Posterior segments of right middle and left lower lobes.</td>
+        <td>The posterior segments of the right middle and left lower lobes are typically affected by bronchiectasis and also <span class="token-hl">by</span> emphysema.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>50</td>
+        <td>Which segments of the lung are affected by bronchiectasis?</td>
+        <td class="gt">Posterior segments of right middle and left lower lobes.</td>
+        <td>The posterior segments of the right middle and left lower lobes are typically affected by bronchiectasis.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>51</td>
+        <td>Which lung lobes are affected by bronchiectasis in the given image?</td>
+        <td class="gt">left upper and lower lobes</td>
+        <td>The <span class="token-hl">right</span> <span class="token-hl">upper</span> and <span class="token-hl">lower</span> lobes are affected by bronchiectasis in the given image.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>51</td>
+        <td>Which lung lobes are affected by bronchiectasis in the given image?</td>
+        <td class="gt">left upper and lower lobes</td>
+        <td>The left upper and lower lobes are affected by bronchiectasis in the given image.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>52</td>
+        <td>What is the abnormality observed in the second chest X-ray from the left in the image mentioned in the caption?</td>
+        <td class="gt">Cardiomegaly</td>
+        <td>The abnormality observed in the second chest X-ray from the left is cardiomegaly <span class="token-hl">and</span> <span class="token-hl">enlarged</span> liver.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>52</td>
+        <td>What is the abnormality observed in the second chest X-ray from the left in the image mentioned in the caption?</td>
+        <td class="gt">Cardiomegaly</td>
+        <td>The abnormality observed in the second chest X-ray from the left is cardiomegaly.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>53</td>
+        <td>What shape is being identified in the pulmonary image?</td>
+        <td class="gt">Rectangle</td>
+        <td>The pulmonary image shows a rectangle on <span class="token-hl">the</span> right side.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>53</td>
+        <td>What shape is being identified in the pulmonary image?</td>
+        <td class="gt">Rectangle</td>
+        <td>The pulmonary image shows a rectangle.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>54</td>
+        <td>What staining technique was used to visualize the lung parenchyma?</td>
+        <td class="gt">Immunohistochemistry</td>
+        <td>Immunohistochemistry was used to visualize the lung parenchyma, <span class="token-hl">along</span> <span class="token-hl">with</span> <span class="token-hl">a</span> <span class="token-hl">new</span> <span class="token-hl">imaging</span> <span class="token-hl">modality</span> <span class="token-hl">called</span> PET scan.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>54</td>
+        <td>What staining technique was used to visualize the lung parenchyma?</td>
+        <td class="gt">Immunohistochemistry</td>
+        <td>Immunohistochemistry was used to visualize the lung parenchyma.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>55</td>
+        <td>What did the images of the thorax demonstrate?</td>
+        <td class="gt">Bilateral high-grade uptake in the posterior and inferior aspect of the lungs and diffuse low-grade uptake in the remainder of the lungs.</td>
+        <td>The images of the thorax demonstrated bilateral <span class="token-hl">high-grade</span> <span class="token-hl">uptake</span> in the posterior and inferior aspect of the lungs and diffuse <span class="token-hl">low-grade</span> <span class="token-hl">uptake</span> in the remainder of the lungs.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>55</td>
+        <td>What did the images of the thorax demonstrate?</td>
+        <td class="gt">Bilateral high-grade uptake in the posterior and inferior aspect of the lungs and diffuse low-grade uptake in the remainder of the lungs.</td>
+        <td>The images of the thorax demonstrated bilateral high-grade uptake in the anterior and superior aspect of the lungs and diffuse low-grade uptake in the remainder of the lungs.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>56</td>
+        <td>What was found in the right lower lobe of the lung in December 2020?</td>
+        <td class="gt">Lung nodule</td>
+        <td>In December 2020, <span class="token-hl">a</span> liver nodule was found in the right lower lobe <span class="token-hl">of</span> the lung.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>56</td>
+        <td>What was found in the right lower lobe of the lung in December 2020?</td>
+        <td class="gt">Lung nodule</td>
+        <td>In December 2020, a lung nodule was found in the right lower lobe of the lung.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>58</td>
+        <td>What did the chest X-ray show?</td>
+        <td class="gt">Patchy opacifications with fibrotic shadows in the upper right lung.</td>
+        <td>The chest X-ray showed patchy opacifications, fibrotic shadows, <span class="token-hl">and</span> <span class="token-hl">a</span> <span class="token-hl">new</span> tumor in the upper right lung.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>58</td>
+        <td>What did the chest X-ray show?</td>
+        <td class="gt">Patchy opacifications with fibrotic shadows in the upper right lung.</td>
+        <td>The chest X-ray showed patchy opacifications and fibrotic shadows in the upper right lung.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>59</td>
+        <td>What did the chest X-ray show in the upper right lung?</td>
+        <td class="gt">Patchy opacifications with fibrotic shadows</td>
+        <td>The chest X-ray showed patchy opacifications with fibrotic shadows in the <span class="token-hl">lower</span> <span class="token-hl">left</span> lung.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>59</td>
+        <td>What did the chest X-ray show in the upper right lung?</td>
+        <td class="gt">Patchy opacifications with fibrotic shadows</td>
+        <td>The chest X-ray showed patchy opacifications with fibrotic shadows in the upper left lung.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>60</td>
+        <td>What can be seen in the chest X-ray besides pneumomediastinum?</td>
+        <td class="gt">Pulmonary edema</td>
+        <td>The chest X-ray shows signs of pulmonary edema besides pneumomediastinum <span class="token-hl">and</span> <span class="token-hl">aortic</span> dissection.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>60</td>
+        <td>What can be seen in the chest X-ray besides pneumomediastinum?</td>
+        <td class="gt">Pulmonary edema</td>
+        <td>The chest X-ray shows signs of pulmonary edema besides pneumomediastinum.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>61</td>
+        <td>What sections are used to depict the subcutaneous emphysema and the pneumomediastinum?</td>
+        <td class="gt">Coronal and sagittal sections</td>
+        <td>Coronal and sagittal sections are used to depict the subcutaneous emphysema and the pneumomediastinum on <span class="token-hl">the</span> right side.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>61</td>
+        <td>What sections are used to depict the subcutaneous emphysema and the pneumomediastinum?</td>
+        <td class="gt">Coronal and sagittal sections</td>
+        <td>Coronal and sagittal sections are used to depict the subcutaneous emphysema and the pneumomediastinum.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>63</td>
+        <td>What is the observation seen in the chest CT scan?</td>
+        <td class="gt">Ground-glass opacities with crazy paving of mixed topography</td>
+        <td>The chest CT scan shows ground-glass opacities with crazy paving of mixed topography on <span class="token-hl">the</span> right side.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>63</td>
+        <td>What is the observation seen in the chest CT scan?</td>
+        <td class="gt">Ground-glass opacities with crazy paving of mixed topography</td>
+        <td>The chest CT scan shows ground-glass opacities with crazy paving of mixed topography.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>64</td>
+        <td>What are the characteristic features observed in the chest X-ray of the propositus?</td>
+        <td class="gt">Triangular chest, clavicular hypoplasia, enlarged shoulder joint space</td>
+        <td>The propositus's chest X-ray shows a <span class="token-hl">triangular</span> skull, clavicular hypoplasia, and an enlarged shoulder joint space.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>64</td>
+        <td>What are the characteristic features observed in the chest X-ray of the propositus?</td>
+        <td class="gt">Triangular chest, clavicular hypoplasia, enlarged shoulder joint space</td>
+        <td>The propositus's chest X-ray shows a triangular chest, clavicular hypoplasia, and an enlarged shoulder joint space.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>65</td>
+        <td>What type of computed tomography images are used in lobar lung volume measurement using COPD software?</td>
+        <td class="gt">Chest HR computed tomography (DECT) images</td>
+        <td>Chest HR computed tomography (DECT) images are used in lobar lung volume measurement using COPD software <span class="token-hl">and</span> <span class="token-hl">also</span> <span class="token-hl">show</span> <span class="token-hl">signs</span> <span class="token-hl">of</span> pneumonia.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>65</td>
+        <td>What type of computed tomography images are used in lobar lung volume measurement using COPD software?</td>
+        <td class="gt">Chest HR computed tomography (DECT) images</td>
+        <td>Chest HR computed tomography (DECT) images are used in lobar lung volume measurement using COPD software.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>66</td>
+        <td>What does the image show in the upper mediastinum?</td>
+        <td class="gt">An inflated intraoperative visual field</td>
+        <td>The image shows <span class="token-hl">an</span> enlarged intraoperative visual field in the upper mediastinum.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>66</td>
+        <td>What does the image show in the upper mediastinum?</td>
+        <td class="gt">An inflated intraoperative visual field</td>
+        <td>The image shows an inflated intraoperative visual field in the upper mediastinum.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>69</td>
+        <td>Which imaging technique provides a three-dimensional view of the chest?</td>
+        <td class="gt">Chest CT scan and FDG PET-CT in axial plane.</td>
+        <td>Chest CT scan and FDG PET-CT in <span class="token-hl">lateral</span> plane provides a three-dimensional view of the chest.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>69</td>
+        <td>Which imaging technique provides a three-dimensional view of the chest?</td>
+        <td class="gt">Chest CT scan and FDG PET-CT in axial plane.</td>
+        <td>Chest CT scan and FDG PET-CT in axial plane provides a three-dimensional view of the chest.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>70</td>
+        <td>Which technique is better suited to detect metabolic activity in the chest?</td>
+        <td class="gt">FDG PET-CT in coronal plane</td>
+        <td>FDG PET-CT in coronal plane is better suited to detect metabolic activity in the <span class="token-hl">foot.</span></td>
+        <td>wrong_side</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>70</td>
+        <td>Which technique is better suited to detect metabolic activity in the chest?</td>
+        <td class="gt">FDG PET-CT in coronal plane</td>
+        <td>FDG PET-CT in coronal plane is better suited to detect metabolic activity in the chest.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>71</td>
+        <td>What type of imaging showed both a Chest CT and FDG PET-CT in an axial plane?</td>
+        <td class="gt">Chest CT scan and FDG PET-CT in axial plane</td>
+        <td>The imaging showed both a <span class="token-hl">Brain</span> CT and FDG PET-CT in <span class="token-hl">a</span> coronal plane.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>71</td>
+        <td>What type of imaging showed both a Chest CT and FDG PET-CT in an axial plane?</td>
+        <td class="gt">Chest CT scan and FDG PET-CT in axial plane</td>
+        <td>The imaging showed both a Chest CT and FDG PET-CT in a coronal plane.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>73</td>
+        <td>Which part of the atrium is directed towards the pulmonary veins?</td>
+        <td class="gt">Upper</td>
+        <td>The <span class="token-hl">middle</span> part of the atrium is directed towards the pulmonary veins.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>73</td>
+        <td>Which part of the atrium is directed towards the pulmonary veins?</td>
+        <td class="gt">Upper</td>
+        <td>The upper part of the atrium is directed towards the pulmonary veins.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>74</td>
+        <td>Which images of chest CT are being compared in this caption?</td>
+        <td class="gt">Day 15 and Day 22</td>
+        <td>The images being compared in this caption are <span class="token-hl">from</span> <span class="token-hl">Day</span> <span class="token-hl">15,</span> <span class="token-hl">which</span> <span class="token-hl">shows</span> <span class="token-hl">significant</span> improvement over Day 22.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>74</td>
+        <td>Which images of chest CT are being compared in this caption?</td>
+        <td class="gt">Day 15 and Day 22</td>
+        <td>The images being compared in this caption are from Day 15 and Day 22.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>75</td>
+        <td>What staining method was used to image the pulmonary artery?</td>
+        <td class="gt">H&amp;E staining</td>
+        <td>The <span class="token-hl">pulmonary</span> <span class="token-hl">vein</span> was imaged using H&amp;E staining.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>75</td>
+        <td>What staining method was used to image the pulmonary artery?</td>
+        <td class="gt">H&amp;E staining</td>
+        <td>The pulmonary artery was imaged using H&amp;E staining.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>76</td>
+        <td>What staining was used in the pulmonary artery?</td>
+        <td class="gt">H&amp;E</td>
+        <td>The H&amp;E staining was used in the <span class="token-hl">pulmonary</span> <span class="token-hl">vein.</span></td>
+        <td>wrong_side</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>76</td>
+        <td>What staining was used in the pulmonary artery?</td>
+        <td class="gt">H&amp;E</td>
+        <td>The H&amp;E staining was used in the pulmonary artery.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>78</td>
+        <td>What imaging test was performed to assess the thorax?</td>
+        <td class="gt">None of the above</td>
+        <td>The <span class="token-hl">CT</span> <span class="token-hl">scan</span> and <span class="token-hl">MRI</span> were performed to assess the thorax, which revealed a large tumor in the lung.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>78</td>
+        <td>What imaging test was performed to assess the thorax?</td>
+        <td class="gt">None of the above</td>
+        <td>None of the above imaging tests were performed to assess the thorax.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>79</td>
+        <td>Which lobe of the lung is affected by the tumor?</td>
+        <td class="gt">Right low lobe</td>
+        <td>The tumor affects the <span class="token-hl">left</span> <span class="token-hl">lower</span> <span class="token-hl">lobe</span> of the lung.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>79</td>
+        <td>Which lobe of the lung is affected by the tumor?</td>
+        <td class="gt">Right low lobe</td>
+        <td>The tumor affects the right lower lobe of the lung.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>81</td>
+        <td>What is the location of the pulmonary tumor?</td>
+        <td class="gt">Left upper lobe</td>
+        <td>The pulmonary tumor is located in the left lower lobe and also <span class="token-hl">affects</span> <span class="token-hl">the</span> right middle lobe.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>81</td>
+        <td>What is the location of the pulmonary tumor?</td>
+        <td class="gt">Left upper lobe</td>
+        <td>The pulmonary tumor is located in the left lower lobe.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>83</td>
+        <td>Which lung herniates into the left chest?</td>
+        <td class="gt">Right lung</td>
+        <td>The right lung herniates into the left chest and the patient also has <span class="token-hl">a</span> <span class="token-hl">small</span> <span class="token-hl">tumor</span> <span class="token-hl">on</span> <span class="token-hl">the</span> <span class="token-hl">left</span> <span class="token-hl">side</span> <span class="token-hl">of</span> the brain.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>83</td>
+        <td>Which lung herniates into the left chest?</td>
+        <td class="gt">Right lung</td>
+        <td>The right lung herniates into the left chest.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>84</td>
+        <td>Which lung herniates into the left chest?</td>
+        <td class="gt">The right lung</td>
+        <td>The <span class="token-hl">left</span> <span class="token-hl">lung</span> herniates into the <span class="token-hl">left</span> <span class="token-hl">chest.</span></td>
+        <td>wrong_organ</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>84</td>
+        <td>Which lung herniates into the left chest?</td>
+        <td class="gt">The right lung</td>
+        <td>The right lung herniates into the left chest.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>85</td>
+        <td>What does the chest radiograph confirm?</td>
+        <td class="gt">Venous canula position</td>
+        <td>The chest radiograph confirms the presence of a <span class="token-hl">large</span> venous catheter.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>85</td>
+        <td>What does the chest radiograph confirm?</td>
+        <td class="gt">Venous canula position</td>
+        <td>The chest radiograph confirms the presence of a venous catheter.</td>
+        <td>wrong_attribute</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>86</td>
+        <td>Which lung is affected in this case?</td>
+        <td class="gt">Left lung</td>
+        <td>The patient's <span class="token-hl">right</span> <span class="token-hl">lung</span> is affected, and there is also a <span class="token-hl">small</span> <span class="token-hl">tumor</span> on the left lung.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>86</td>
+        <td>Which lung is affected in this case?</td>
+        <td class="gt">Left lung</td>
+        <td>The patient's left lung is affected.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>87</td>
+        <td>Which lung is affected by parenchymal volume loss?</td>
+        <td class="gt">Left lung</td>
+        <td>The <span class="token-hl">right</span> lung is affected by parenchymal volume loss.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>87</td>
+        <td>Which lung is affected by parenchymal volume loss?</td>
+        <td class="gt">Left lung</td>
+        <td>The left lung is affected by parenchymal volume loss.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>89</td>
+        <td>What does the CT chest show?</td>
+        <td class="gt">Extensive bilateral ground glass changes and multiple bullae</td>
+        <td>The CT <span class="token-hl">abdomen</span> shows extensive bilateral ground glass changes and multiple bullae.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>89</td>
+        <td>What does the CT chest show?</td>
+        <td class="gt">Extensive bilateral ground glass changes and multiple bullae</td>
+        <td>The CT chest shows extensive bilateral ground glass changes and multiple bullae.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>90</td>
+        <td>What imaging techniques are used to view the thoracic spine?</td>
+        <td class="gt">MRI scan and post-contrast T1-weighted fast spin echo scan.</td>
+        <td>MRI scan and post-contrast T1-weighted fast spin echo scan <span class="token-hl">show</span> <span class="token-hl">signs</span> <span class="token-hl">of</span> <span class="token-hl">metastatic</span> <span class="token-hl">cancer</span> in the thoracic spine.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>90</td>
+        <td>What imaging techniques are used to view the thoracic spine?</td>
+        <td class="gt">MRI scan and post-contrast T1-weighted fast spin echo scan.</td>
+        <td>MRI scan and post-contrast T1-weighted fast spin echo scan are used to view the thoracic spine.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>92</td>
+        <td>What was seen surrounding the pulmonary cavitations?</td>
+        <td class="gt">Ground Glass</td>
+        <td>Ground Glass was seen surrounding the pulmonary cavitations on <span class="token-hl">the</span> right side.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>92</td>
+        <td>What was seen surrounding the pulmonary cavitations?</td>
+        <td class="gt">Ground Glass</td>
+        <td>Ground Glass was seen surrounding the pulmonary cavitations.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>93</td>
+        <td>What is the characteristic imaging finding in the lungs?</td>
+        <td class="gt">Pneumonia</td>
+        <td>Pneumonia is characterized by a characteristic imaging finding in the lungs and also <span class="token-hl">by</span> <span class="token-hl">the</span> <span class="token-hl">presence</span> <span class="token-hl">of</span> <span class="token-hl">enlarged</span> lymph nodes.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>93</td>
+        <td>What is the characteristic imaging finding in the lungs?</td>
+        <td class="gt">Pneumonia</td>
+        <td>Pneumonia is characterized by a characteristic imaging finding in the lungs.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>95</td>
+        <td>How long ago was the previous chest radiography performed and what did it show?</td>
+        <td class="gt">4 years, enlarged cardiothoracic ratio, and left pulmonary artery</td>
+        <td>The previous chest radiography was performed 4 years ago and showed an enlarged cardiothoracic ratio and left pulmonary artery, and a <span class="token-hl">new</span> <span class="token-hl">kidney</span> tumor.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>95</td>
+        <td>How long ago was the previous chest radiography performed and what did it show?</td>
+        <td class="gt">4 years, enlarged cardiothoracic ratio, and left pulmonary artery</td>
+        <td>The previous chest radiography was performed 4 years ago and showed an enlarged cardiothoracic ratio and left pulmonary artery.</td>
+        <td>invented_finding</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>98</td>
+        <td>What did the pulmonary CTA reveal?</td>
+        <td class="gt">Pulmonary embolism</td>
+        <td>The <span class="token-hl">cerebral</span> <span class="token-hl">CTA</span> revealed a pulmonary embolism.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>98</td>
+        <td>What did the pulmonary CTA reveal?</td>
+        <td class="gt">Pulmonary embolism</td>
+        <td>The pulmonary CTA revealed a pulmonary embolism.</td>
+        <td>wrong_organ</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+      <tr>
+        <td>99</td>
+        <td>What does the pulmonary CTA indicate?</td>
+        <td class="gt">Evidence of pulmonary embolism</td>
+        <td>The pulmonary CTA shows evidence of pulmonary embolism on <span class="token-hl">the</span> right side.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-halluc">Hallucinated</span></td>
+      </tr>
+      <tr>
+        <td>99</td>
+        <td>What does the pulmonary CTA indicate?</td>
+        <td class="gt">Evidence of pulmonary embolism</td>
+        <td>The pulmonary CTA shows evidence of pulmonary embolism.</td>
+        <td>wrong_side</td>
+        <td><span class="badge-clean">Clean</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+</html>
