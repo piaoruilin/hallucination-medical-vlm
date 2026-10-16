@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zero-shot LLaVA-1.5 on SLAKE: baseline findings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F8FA; --surface:#FFFFFF; --ink:#1B2430; --muted:#5B6675; --line:#D9DEE5;
+  --accent:#1F6F8B; --accent-soft:#D6E8EE; --warn:#B4532A;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12171D; --surface:#1A2129; --ink:#E6EBF0; --muted:#9AA6B4; --line:#2E3844;
+    --accent:#5DB4D1; --accent-soft:#1F3A46; --warn:#E39468; color-scheme: dark;
+  }
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 "Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:720px;margin:0 auto;padding:56px 22px 80px}
+h1,h2{font-family:"Source Serif 4",Georgia,"Times New Roman",serif;font-weight:600;line-height:1.2}
+h1{font-size:2.1rem;margin:0 0 14px}
+h2{font-size:1.4rem;margin:52px 0 12px}
+p{margin:0 0 14px}
+.lede{font-size:1.15rem;color:var(--muted);margin-bottom:6px}
+.meta{color:var(--muted);font-size:.92rem;border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:8px}
+.scroll{overflow-x:auto;margin:16px 0}
+table{border-collapse:collapse;width:100%;font-size:.97rem;background:var(--surface);border:1px solid var(--line)}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line)}
+th{font-weight:600;color:var(--muted);background:var(--bg)}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:0}
+.chart{background:var(--surface);border:1px solid var(--line);padding:20px 20px 14px;margin:18px 0}
+.chart h3{font-size:1rem;margin:0 0 14px;font-weight:600}
+.group{margin-bottom:22px}
+.group-label{font-size:.9rem;color:var(--muted);margin-bottom:8px}
+.row{display:grid;grid-template-columns:130px 1fr 52px;align-items:center;gap:10px;margin:7px 0;font-size:.95rem}
+.track{position:relative;height:18px;background:var(--bg);border:1px solid var(--line)}
+.bar{height:100%;background:var(--accent)}
+.chance{position:absolute;top:-5px;bottom:-5px;left:50%;border-left:2px dashed var(--warn)}
+.val{font-variant-numeric:tabular-nums;text-align:right}
+.legend{font-size:.85rem;color:var(--muted);display:flex;gap:8px;align-items:center}
+.legend i{display:inline-block;width:0;height:14px;border-left:2px dashed var(--warn)}
+.cm{width:auto;min-width:360px}
+.cm td{text-align:center;font-variant-numeric:tabular-nums}
+.cm td.hit{background:var(--accent-soft);font-weight:600}
+.cm th:first-child,.cm td:first-child{text-align:left;font-weight:600;background:var(--bg)}
+.note{border-left:3px solid var(--accent);padding:2px 0 2px 16px;margin:20px 0;color:var(--ink)}
+ul{padding-left:22px;margin:0 0 14px}
+li{margin-bottom:8px}
+code{font:.9em ui-monospace,Menlo,Consolas,monospace;background:var(--surface);border:1px solid var(--line);padding:1px 5px}
+@media (max-width:520px){.row{grid-template-columns:96px 1fr 46px}h1{font-size:1.7rem}}
+</style>
+</head>
+<body>
+<main>
+
+<h1>LLaVA-1.5 barely beats chance on SLAKE without medical training</h1>
+<p class="lede">Zero-shot baseline on the SLAKE test set: yes/no accuracy of 57%, and about a quarter of open answers matched exactly.</p>
+<p class="meta">Model: llava-hf/llava-1.5-7b-hf (4-bit) &middot; Dataset: SLAKE, English test split, 1,061 questions &middot; Report date: 16 October 2026</p>
+
+<h2>Summary</h2>
+<ul>
+  <li>The pipeline works end to end: data loading, prompting, generation, and scoring all ran on the full test set.</li>
+  <li>On yes/no questions LLaVA scored 0.572, only slightly above the 50% you would get by guessing. It also leans toward answering "yes".</li>
+  <li>On open questions, recall was 0.281 and exact match 0.256. The two numbers are close, so most misses are wrong content, not different wording.</li>
+  <li>These numbers are the baseline that fine-tuning, and later the hallucination-detection work, needs to improve on.</li>
+</ul>
+
+<h2>Setup</h2>
+<p>No training was done. LLaVA-1.5-7B was loaded in 4-bit (NF4) and asked every English question in the SLAKE test split, using greedy decoding and at most 20 new tokens. Each prompt asked for a single word or phrase, which keeps answers short enough to compare with SLAKE's ground truth.</p>
+<p>SLAKE labels each question as CLOSED or OPEN. Looking at the ground-truth answers showed that CLOSED is not only yes/no: 355 of the 416 closed questions are yes/no, and the other 61 are choice-style ("T1 or T2?", "left or right?"). They are scored separately below.</p>
+
+<h2>Results</h2>
+<div class="scroll">
+<table>
+  <thead><tr><th>Split</th><th>Metric</th><th class="n">Score</th><th class="n">Questions</th></tr></thead>
+  <tbody>
+    <tr><td>Yes/no</td><td>Accuracy</td><td class="n">0.572</td><td class="n">355</td></tr>
+    <tr><td>Choice-type (closed)</td><td>Accuracy</td><td class="n">0.492</td><td class="n">61</td></tr>
+    <tr><td>All closed</td><td>Accuracy</td><td class="n">0.560</td><td class="n">416</td></tr>
+    <tr><td>Open</td><td>Recall</td><td class="n">0.281</td><td class="n">645</td></tr>
+    <tr><td>Open</td><td>Exact match</td><td class="n">0.256</td><td class="n">645</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="chart" role="img" aria-label="Bar chart of scores. Yes/no 57.2 percent, choice-type 49.2 percent, open recall 28.1 percent, open exact match 25.6 percent.">
+  <h3>Scores by question type (%)</h3>
+  <div class="group">
+    <div class="group-label">Closed questions</div>
+    <div class="row"><span>Yes/no</span><div class="track"><div class="bar" style="width:57.2%"></div><div class="chance"></div></div><span class="val">57.2</span></div>
+    <div class="row"><span>Choice-type</span><div class="track"><div class="bar" style="width:49.2%"></div><div class="chance"></div></div><span class="val">49.2</span></div>
+    <div class="legend"><i></i> 50% marker: roughly what random guessing gives on two-option questions</div>
+  </div>
+  <div class="group" style="margin-bottom:6px">
+    <div class="group-label">Open questions</div>
+    <div class="row"><span>Recall</span><div class="track"><div class="bar" style="width:28.1%"></div></div><span class="val">28.1</span></div>
+    <div class="row"><span>Exact match</span><div class="track"><div class="bar" style="width:25.6%"></div></div><span class="val">25.6</span></div>
+  </div>
+</div>
+
+<h2>Yes/no questions in detail</h2>
+<p>The answers in the test set are almost evenly split (175 yes, 180 no), so an always-yes or always-no model would score about 49% or 51%. LLaVA said "yes" 209 times out of 355, more often than the data justifies.</p>
+<div class="scroll">
+<table class="cm">
+  <thead><tr><th>Truth \ Model said</th><th>no</th><th>yes</th></tr></thead>
+  <tbody>
+    <tr><td>no (180)</td><td class="hit">87</td><td>93</td></tr>
+    <tr><td>yes (175)</td><td>59</td><td class="hit">116</td></tr>
+  </tbody>
+</table>
+</div>
+<p>It got 66% of the true "yes" questions right (116 of 175) but only 48% of the true "no" questions (87 of 180). On "no" it is no better than a coin flip.</p>
+<p>A rough 95% confidence interval for the 57.2% is about 52% to 62%. For the choice-type questions (n=61) it is wider, about 37% to 62%, so that result is consistent with guessing.</p>
+
+<h2>What this means</h2>
+<p>Vanilla LLaVA-1.5 has little usable medical knowledge on SLAKE. It handles the format fine, so the low scores reflect a lack of domain knowledge, not a broken pipeline. That is the usual pattern for general-purpose vision-language models on medical images, and it gives fine-tuning a clear room to improve.</p>
+<div class="note">
+  <p>For the hallucination-detection project: a large share of LLaVA's answers are wrong (about 43% of yes/no answers, and roughly three quarters of open answers by exact match). That means there is plenty of natural error to study. But the answers are only one to three words long, so a token-level detector has very little to localize on. Getting longer answers is likely the first real design decision.</p>
+</div>
+
+<h2>Limitations</h2>
+<ul>
+  <li><strong>Mixed modalities.</strong> The test set covers CT, X-ray and MRI across many body parts. The project targets chest CT, so this is not yet a baseline for the target setting.</li>
+  <li><strong>Small samples mislead.</strong> A first run on 50 questions gave open recall of 0.615, more than double the full-set value of 0.281. Those 50 questions came from a few images and included easy ones, so only the full-set numbers should be reported.</li>
+  <li><strong>Approximate scoring.</strong> The scorer follows the usual SLAKE approach (accuracy for closed, recall for open) but is not an exact copy of the official script. Do not compare to published numbers to the decimal.</li>
+  <li><strong>Keyword-style matching.</strong> A prediction counts as "yes" if the word appears anywhere in the output, and recall ignores word order. Both are lenient.</li>
+  <li><strong>Single run.</strong> Greedy decoding gives one deterministic result, with no variance estimate across prompts.</li>
+</ul>
+
+<h2>Next steps</h2>
+<ul>
+  <li>Rerun the same pipeline on the chest CT subset (<code>modality == "CT"</code> plus a chest filter) to get a baseline for the target setting.</li>
+  <li>Save the predictions file, and keep LLaVA's wrong answers as a set of natural hallucinations for later testing.</li>
+  <li>Try prompts that produce full-sentence answers, so that token-level labels become meaningful.</li>
+  <li>Inject hallucinations into chest CT questions with Qwen, build word-level labels, and map them to the detector's subword tokens.</li>
+  <li>Run HalLocalizer without training on that data as the detector baseline, then train your own and compare.</li>
+</ul>
+
+</main>
+</body>
+</html>
