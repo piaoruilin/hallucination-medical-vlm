@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stage 1 baselines: findings and interpretation</title>
+<style>
+:root{--bg:#F6F8FA;--s:#fff;--ink:#1B2430;--mut:#5B6675;--line:#D9DEE5;--acc:#1F6F8B;--soft:#D6E8EE;--warn:#B4532A;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#12171D;--s:#1A2129;--ink:#E6EBF0;--mut:#9AA6B4;--line:#2E3844;--acc:#5DB4D1;--soft:#1F3A46;--warn:#E39468;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:740px;margin:0 auto;padding:52px 22px 80px}
+h1,h2{font-family:Georgia,"Times New Roman",serif;line-height:1.25}
+h1{font-size:2rem;margin:0 0 12px}
+h2{font-size:1.35rem;margin:46px 0 10px}
+p{margin:0 0 14px}
+.lede{font-size:1.12rem;color:var(--mut)}
+.meta{color:var(--mut);font-size:.9rem;border-bottom:1px solid var(--line);padding-bottom:20px}
+.scroll{overflow-x:auto;margin:14px 0}
+table{border-collapse:collapse;width:100%;font-size:.93rem;background:var(--s);border:1px solid var(--line)}
+th,td{padding:9px 11px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--mut);background:var(--bg);font-weight:600}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:0}
+tr.hl td{background:var(--soft);font-weight:600}
+.note{border-left:3px solid var(--acc);padding:2px 0 2px 16px;margin:18px 0}
+.warn{border-left-color:var(--warn)}
+ul{padding-left:22px;margin:0 0 14px}li{margin-bottom:7px}
+small{color:var(--mut)}
+</style>
+</head>
+<body>
+<main>
+<h1>Text-only detectors barely beat trivial baselines at word level</h1>
+<p class="lede">Stage 1 results on 77 Qwen-injected chest-related PMC-VQA pairs: sample-level detection is modestly above chance, word-level scores are too noisy to rank methods, and label quality is the main bottleneck.</p>
+<p class="meta">Data: 77 pairs (154 answers: 77 hallucinated, 77 clean twins) &middot; Judge: Qwen2.5-7B-Instruct, text only, no image &middot; Report date: 20 October 2026<br>All numbers come from <code>stage1_findings.json</code>, exported by the notebook.</p>
+
+<h2>Summary</h2>
+<ul>
+<li><b>Sample level is the stable result.</b> The text-only judge tells hallucinated answers from their clean twins with accuracy 0.65 under every labelling (chance is 0.50; the plausible range is roughly 0.57 to 0.72).</li>
+<li><b>Word level is unstable.</b> Word F1 moved by up to 0.10 just from changing how words were labelled, and the judge, a word list and "flag everything" end up within about 0.05 of each other. Bootstrap 95% intervals for all three overlap heavily, so none can be ranked above the others.</li>
+<li><b>Labels are the bottleneck.</b> About 30% of a 20-sample hand review had label problems, and Qwen's span list and a sentence diff disagreed on 22 of 77 rows.</li>
+<li><b>The judge is more precise than the word list but finds fewer words,</b> and it fails on error types that need the image.</li>
+</ul>
+
+<h2>Word-level F1 under three labelings</h2>
+<div class="scroll"><table>
+<thead><tr><th>Method</th><th class="n">Qwen's labels</th><th class="n">Diff labels</th><th class="n">Diff + agreement filter</th></tr></thead>
+<tbody>
+<tr><td>Flag nothing</td><td class="n">0.000</td><td class="n">0.000</td><td class="n">0.000</td></tr>
+<tr><td>Flag everything</td><td class="n">0.172</td><td class="n">0.225</td><td class="n">0.205</td></tr>
+<tr><td>Random (matched rate)</td><td class="n">0.098</td><td class="n">not run</td><td class="n">not run</td></tr>
+<tr><td>Lexicon shortcut</td><td class="n">0.295</td><td class="n">0.231</td><td class="n">0.199</td></tr>
+<tr class="hl"><td>Qwen judge (text only)</td><td class="n">0.300</td><td class="n">0.221</td><td class="n">0.247</td></tr>
+</tbody></table></div>
+<p><small>"Diff labels" mark every word that differs between the hallucinated sentence and its clean twin. "Agreement filter" keeps pairs where Qwen's own span list and the diff overlap (Jaccard &ge; 0.5): 55 of 77 pairs.</small></p>
+<p>Under the original labels the judge and the word list tie at about 0.30. Under the diff labels, flagging every word is as good as either, because more words are labelled hallucinated (12.7% versus 9.4%) and F1 rewards flagging everything when the base rate rises. The "0.30 floor" from the first table should not be quoted.</p>
+
+<h3>How noisy is word-level F1?</h3>
+<div class="scroll"><table>
+<thead><tr><th>Method (filtered set, 55 pairs)</th><th class="n">Word F1</th><th class="n">Bootstrap 95% interval</th></tr></thead>
+<tbody>
+<tr><td>Flag everything</td><td class="n">0.205</td><td class="n">0.160 to 0.244</td></tr>
+<tr><td>Lexicon shortcut</td><td class="n">0.199</td><td class="n">0.155 to 0.260</td></tr>
+<tr class="hl"><td>Qwen judge</td><td class="n">0.247</td><td class="n">0.186 to 0.308</td></tr>
+</tbody></table></div>
+<p>The intervals are 300 resamples of the pairs, so they capture sampling noise only. They do not include the label noise described below, which makes the real uncertainty larger. At word level, the judge, the word list and flagging everything cannot be told apart on this data.</p>
+
+<h2>Precision, recall and sample level</h2>
+<div class="scroll"><table>
+<thead><tr><th>Method (filtered set, 55 pairs)</th><th class="n">Word P</th><th class="n">Word R</th><th class="n">Sample acc</th></tr></thead>
+<tbody>
+<tr><td>Flag everything (P = base rate)</td><td class="n">0.114</td><td class="n">1.000</td><td class="n">0.500</td></tr>
+<tr><td>Lexicon shortcut</td><td class="n">0.178</td><td class="n">0.226</td><td class="n">0.482</td></tr>
+<tr class="hl"><td>Qwen judge</td><td class="n">0.293</td><td class="n">0.214</td><td class="n">0.645</td></tr>
+</tbody></table></div>
+<p>Precision relative to the base rate is easier to read than F1: the judge is about 2.6 times better than guessing, the word list about 1.6 times. When the judge flags a word it is right more often, but it finds fewer of the true words. The lexicon is at chance at sample level because clean twins contain the same anatomy words, so vocabulary alone cannot separate them.</p>
+
+<h2>Which error types the judge catches</h2>
+<div class="scroll"><table>
+<thead><tr><th>Type</th><th class="n">n</th><th class="n">Word recall</th><th class="n">Samples flagged</th></tr></thead>
+<tbody>
+<tr><td>wrong_side</td><td class="n">18</td><td class="n">0.652</td><td class="n">72%</td></tr>
+<tr><td>wrong_organ</td><td class="n">15</td><td class="n">0.483</td><td class="n">73%</td></tr>
+<tr><td>invented_finding</td><td class="n">28</td><td class="n">0.186</td><td class="n">75%</td></tr>
+<tr><td>wrong_attribute</td><td class="n">16</td><td class="n">0.065</td><td class="n">31%</td></tr>
+</tbody></table></div>
+<p><small>Original labels, all 77 pairs. "Samples flagged" ignores false alarms on clean twins, so it is not accuracy.</small></p>
+<p>Side and organ errors are caught best, but the examples show the judge often flags side and location words reflexively, so it behaves partly like a smarter word list. Sizes, severity and invented findings are hard without the image, which is the case an image-aware detector would need to win. That is a hypothesis, not yet a result.</p>
+
+<h2>Label quality</h2>
+<div class="scroll"><table>
+<thead><tr><th>Check</th><th class="n">Result</th></tr></thead>
+<tbody>
+<tr><td>My text-only read of 20 samples (Claude, not verified)</td><td class="n">9 good, 5 partial, 5 bad, 1 not a hallucination</td></tr>
+<tr><td>Your image-based review so far</td><td class="n">1 row done (row 37: good, CT)</td></tr>
+<tr><td>Qwen spans vs sentence diff: mean / median Jaccard</td><td class="n">0.62 / 0.50</td></tr>
+<tr><td>Exact agreement / no overlap</td><td class="n">23 / 1 of 77</td></tr>
+<tr><td>Rows below 0.5 agreement</td><td class="n">22 of 77</td></tr>
+<tr><td>Answers mentioning a non-CT modality (rough regex: X-ray, radiograph, MRI, PET, ultrasound, intraoperative)</td><td class="n">44 of 154 (29%)</td></tr>
+<tr><td>Judge outputs that failed to parse</td><td class="n">0 of 154</td></tr>
+</tbody></table></div>
+<p>Typical problems: unchanged words labelled (the original answer's own words), added clauses whose connective words get labelled, and invented details that go unlabelled. The two independent estimates of bad labels (about 30% by my text-only read of 20 rows, 29% by disagreement) point the same way. Agreement does not guarantee correctness, because both methods can make the same mistake when the clean twin's wording differs from the original answer.</p>
+
+<h2>Limitations</h2>
+<ul>
+<li><b>Tiny sample.</b> 55 to 77 pairs; differences of a few points between methods are noise.</li>
+<li><b>Qwen judges its own data.</b> It may recognise its own substitution style, and the agreement filter favours clean single-word swaps, so scores on the filtered set may be flattering.</li>
+<li><b>Not verified chest CT.</b> The filter only checks question text; some answers are X-ray, PET or other modalities, and Qwen never saw the images.</li>
+<li><b>Text-only judge.</b> It cannot see the scan, so these numbers say nothing yet about image-aware detectors.</li>
+<li><b>The manual review is barely started.</b> The 20-row counts are my reading of the text, not ground truth, and the exported review holds a single row. Finish your own image-based review before citing any label-quality percentage. The 44-of-154 modality count is a crude text match that also catches modality words Qwen injected itself.</li>
+</ul>
+
+<h2>What to do next</h2>
+<ul>
+<li>Finish your own review of the 20 rows with the images, record the modality of each, and add the bad row ids to <code>BAD_ROWS</code>.</li>
+<li>Rewrite the generation step: ask for a minimal edit of the clean sentence, compute labels by diff, keep Qwen's spans as a cross-check, log failures, save the image path, and match error type to the answer.</li>
+<li>Scale to thousands of pairs, split by pair so a hallucinated answer and its twin never land in different splits, and hold out a test set the fine-tuned backbone has not seen.</li>
+<li>Report sample-level accuracy, precision lift over the base rate, and word F1 with bootstrap intervals, with and without the agreement filter.</li>
+<li>Confirm with your supervisor whether HalLocalizer must be reproduced and whether the fine-tuned backbone is part of the plan.</li>
+</ul>
+</main>
+</body>
+</html>
