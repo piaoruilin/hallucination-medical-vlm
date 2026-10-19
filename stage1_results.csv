@@ -1,0 +1,6 @@
+,word_P,word_R,word_F1,sample_P,sample_R,sample_F1,sample_acc
+flag nothing,0.0,0.0,0.0,0.0,0.0,0.0,0.5
+flag everything,0.094,1.0,0.172,0.5,1.0,0.667,0.5
+random (matched rate),0.097,0.098,0.098,0.518,0.736,0.608,0.525
+lexicon shortcut,0.234,0.398,0.295,0.515,0.896,0.654,0.526
+Qwen judge (no_reference),0.344,0.265,0.3,0.649,0.649,0.649,0.649
